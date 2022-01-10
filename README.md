@@ -1,3 +1,6 @@
+Desenvolvido por: Gabriel Pasini
+Teste para vaga nas squads do GloboPlay TV, desenvolvido em React.JS
+
 Menu
 
 - Só navega verticalmente entre seus itens e quando pressionado para direita, o foco deve ir para o Destaque se este estiver visível ou o Trilho.
