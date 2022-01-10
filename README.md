@@ -1,4 +1,5 @@
 Desenvolvido por: Gabriel Pasini
+
 Teste para vaga nas squads do GloboPlay TV, desenvolvido em React.JS
 
 Menu
