@@ -2,6 +2,10 @@ Desenvolvido por: Gabriel Pasini
 
 Teste para vaga nas squads do GloboPlay TV, desenvolvido em React.JS
 
+RESOLUÇÃO RECOMENDADA: 1920x1080
+
+Disponível no Heroku: https://globoplay-teste.herokuapp.com/
+
 Menu
 
 - Só navega verticalmente entre seus itens e quando pressionado para direita, o foco deve ir para o Destaque se este estiver visível ou o Trilho.
