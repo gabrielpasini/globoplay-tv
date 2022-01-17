@@ -46,6 +46,7 @@ export const Background = styled.img`
     rgba(0, 0, 0, 1),
     rgba(0, 0, 0, 0)
   );
+  transition: all 0.5s ease-in-out;
 `;
 
 export const Logo = styled.img`

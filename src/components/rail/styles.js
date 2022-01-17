@@ -23,6 +23,11 @@ export const BackgroundImage = styled.img`
     props.active
       ? `mask-image: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 1));`
       : "opacity: 0;"}
+  ${(props) =>
+    props.active &&
+    (props.transitionTrigger
+      ? `transition: opacity 0.3s ease-in-out; opacity: 0;`
+      : `transition: opacity 0.3s ease-in-out; opacity: 1;`)}
 `;
 
 export const FocusedContainer = styled.div`

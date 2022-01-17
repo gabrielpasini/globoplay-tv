@@ -68,6 +68,7 @@ const Rail = ({
 }) => {
   const [cameras, setCameras] = useState(initialItems);
   const [selectedCamera, setSelectedCamera] = useState(null);
+  const [previousBackground, setPreviousBackground] = useState("");
 
   useEffect(() => {
     if (!selectedCamera) {
@@ -103,6 +104,7 @@ const Rail = ({
     ) {
       const newCameras = [...cameras];
       const selectedIndex = cameras.indexOf(selectedCamera);
+      const previousItem = cameras[selectedIndex];
       switch (keyPressed) {
         case "ArrowLeft":
           if (selectedIndex === 0) {
@@ -114,6 +116,7 @@ const Rail = ({
             newCameras[selectedIndex - 1].selected = true;
             newCameras[selectedIndex - 1].focused = true;
           }
+          setPreviousBackground(previousItem.background);
           setSelectedCamera(newCameras[selectedIndex - 1]);
           setCameras(newCameras);
           break;
@@ -124,6 +127,7 @@ const Rail = ({
             newCameras[selectedIndex + 1].selected = true;
             newCameras[selectedIndex + 1].focused = true;
           }
+          setPreviousBackground(previousItem.background);
           setSelectedCamera(newCameras[selectedIndex + 1]);
           setCameras(newCameras);
           break;
@@ -139,20 +143,27 @@ const Rail = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [keyPressed]);
 
+  useEffect(() => {
+    if (previousBackground) setTimeout(() => setPreviousBackground(""), 600);
+  }, [previousBackground]);
+
   return (
-    <Container active={!!(option === "rail")}>
+    <Container active={option === "rail"}>
       <BackgroundImage
-        src={selectedCamera?.background}
-        active={!!(option === "rail")}
+        src={
+          previousBackground ? previousBackground : selectedCamera?.background
+        }
+        active={option === "rail"}
+        transitionTrigger={previousBackground}
       />
-      <FocusedContainer active={!!(option === "rail")}>
+      <FocusedContainer active={option === "rail"}>
         <Header>Big Brother Brasil</Header>
         <FocusedTitle>{selectedCamera?.label}</FocusedTitle>
       </FocusedContainer>
       <Title>Agora no BBB</Title>
       <ContentContainer
         index={cameras.indexOf(selectedCamera)}
-        active={!!(option === "rail")}
+        active={option === "rail"}
       >
         {cameras.map((camera, index) => (
           <Camera focused={railActive && camera.focused} key={index}>

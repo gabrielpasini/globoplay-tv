@@ -21,15 +21,7 @@ const Featured = ({
   setRailActive,
   option,
 }) => {
-  const [watchButton, setWatchButton] = useState({
-    label: "Assista",
-    icon: <FaPlay />,
-    focused: true,
-  });
-  const [seeMoreButton, setSeeMoreButton] = useState({
-    label: "Veja mais",
-    focused: false,
-  });
+  const [itemFocused, setItemFocused] = useState("watch");
 
   useEffect(() => {
     if (
@@ -38,26 +30,18 @@ const Featured = ({
         keyPressed === "ArrowRight" ||
         keyPressed === "ArrowLeft")
     ) {
-      const newWatchButton = watchButton;
-      const newSeeMoreButton = seeMoreButton;
       switch (keyPressed) {
         case "ArrowLeft":
-          if (watchButton.focused) {
+          if (itemFocused === "watch") {
             setFeaturedActive(false);
             setMenuActive(true);
-          } else if (seeMoreButton.focused) {
-            newSeeMoreButton.focused = false;
-            newWatchButton.focused = true;
-            setSeeMoreButton(newSeeMoreButton);
-            setWatchButton(newWatchButton);
+          } else {
+            setItemFocused("watch");
           }
           break;
         case "ArrowRight":
-          if (watchButton.focused) {
-            newWatchButton.focused = false;
-            newSeeMoreButton.focused = true;
-            setWatchButton(newWatchButton);
-            setSeeMoreButton(newSeeMoreButton);
+          if (itemFocused === "watch") {
+            setItemFocused("seeMore");
           }
           break;
         case "ArrowDown":
@@ -74,18 +58,21 @@ const Featured = ({
 
   return (
     <>
-      <Container active={!!(option === "featured")}>
-        <Background src={BackgroundBBB} active={!!(option === "featured")} />
+      <Container active={option === "featured"}>
+        <Background src={BackgroundBBB} active={option === "featured"} />
         <ContentContainer>
           <Logo src={LogoBBB} />
           <Text>Acompanhe 24h ao vivo a casa mais vigiada do Brasil</Text>
           <ButtonsContainer>
-            <Button focused={watchButton.focused} showIcon={!!watchButton.icon}>
-              {watchButton.icon}
-              {watchButton.label}
+            <Button
+              focused={itemFocused === "watch" && featuredActive}
+              showIcon={true}
+            >
+              <FaPlay />
+              Assista
             </Button>
-            <Button focused={seeMoreButton.focused}>
-              {seeMoreButton.label}
+            <Button focused={itemFocused === "seeMore" && featuredActive}>
+              Veja mais
             </Button>
           </ButtonsContainer>
         </ContentContainer>
